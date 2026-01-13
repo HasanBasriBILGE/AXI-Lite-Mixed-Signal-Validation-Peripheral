@@ -72,8 +72,18 @@ This ensures correct board configuration and prevents synthesis or implementatio
 ✅ After Running
 
 Once the script finishes successfully, the project will be ready in Vivado.
+---
+## 🧩 What This Script Does
 
-Next steps:
+The `update_project.tcl` script automatically synchronize all files for Vivado. 
+
+▶ How to Run
+
+ 1- Open Vivado
+ 2- Tools/Run TCL script
+ 3- Select `update_project.tcl` script after changes.
+
+Next steps after adding new file:
 
 	+ Add HDL files to src/
 
@@ -81,4 +91,4 @@ Next steps:
 
 	+ Add constraint files to constraints/
 
-	+ Run synthesis and implementation
+	+ Run TCL script &  run synthesis and implementation
