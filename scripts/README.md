@@ -1,13 +1,13 @@
 # 🚀 AXI-Lite Multi-Functional Peripheral
-```
+
 This repository provides a **TCL-based automation script** to quickly create and configure a **Xilinx Vivado project** for **Zynq-7000** based designs.
 
 It is intended as a clean starting point for developing **AXI-Lite based custom peripherals** using **Verilog**.
-```
+
 ---
 
 ## 🧩 What This Script Does
-```
+
 The `create_project.tcl` script automatically:
 
 - Creates a new Vivado project  
@@ -19,7 +19,7 @@ The `create_project.tcl` script automatically:
 - Updates compile order  
 
 This allows you to start working immediately without manual project setup.
-```
+
 ---
 
 ## 📁 Project Structure
@@ -34,7 +34,7 @@ AXI-Lite-MultiFunctionalPeripheral/
 └── README.md
 ```
 ---
-```
+
 ▶️ How to Run
 
  1- Open Vivado
@@ -42,17 +42,18 @@ AXI-Lite-MultiFunctionalPeripheral/
  2- Open the TCL Console
 
  3- Run the script:
-```code
+```
 source scripts/create_project.tcl
 ```
-```
+
 (Optional) Override the project name:
-```code
+
+```
 set user_project_name MyCustomProject
 source scripts/create_project.tcl
 ```
 ---
-```
+
 + Platform Note
 
 If you plan to use a different FPGA board or platform, the board-related parameters in the .tcl script must be updated.
@@ -66,9 +67,8 @@ Recommended workflow:
 	+ Update the corresponding fields in create_project.tcl
 
 This ensures correct board configuration and prevents synthesis or implementation issues.
-```
+
 ---
-```
 ✅ After Running
 
 Once the script finishes successfully, the project will be ready in Vivado.
@@ -82,4 +82,3 @@ Next steps:
 	+ Add constraint files to constraints/
 
 	+ Run synthesis and implementation
-```
