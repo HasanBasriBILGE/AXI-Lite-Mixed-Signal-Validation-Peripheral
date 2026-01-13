@@ -41,9 +41,6 @@ set obj [current_project]
 if {$board_part ne ""} {
   set_property -name "board_part" -value ${board_part} -objects $obj
 }
-if {$board_id ne ""} {
-  set_property -name "platform.board_id" -value ${board_id} -objects $obj
-}
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "target_language" -value ${target_language} -objects $obj
 set_property -name "tool_flow" -value "Vivado" -objects $obj
