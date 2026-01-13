@@ -57,7 +57,10 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 
 # Add source files
 if {[file exists ${src_dir}]} {
-    add_files -norecurse [glob -nocomplain ${src_dir}/*.vhd ${src_dir}/*.v ${src_dir}/*.sv]
+    set src_files [glob -nocomplain ${src_dir}/*.vhd ${src_dir}/*.v ${src_dir}/*.sv]
+    if {[llength $src_files] > 0} { 
+        add_files -norecurse $src_files
+    }
 }
 
 # Create 'constrs_1' fileset (if not found)
@@ -67,7 +70,10 @@ if {[string equal [get_filesets -quiet constrs_1] ""]} {
 
 # Add constraints
 if {[file exists ${constraints_dir}]} {
-    add_files -fileset constrs_1 -norecurse [glob -nocomplain ${constraints_dir}/*.xdc]
+     set xdc_files [glob -nocomplain ${constraints_dir}/*.xdc]
+     if {[llength $xdc_files] > 0} {
+         add_files -fileset constrs_1 -norecurse $xdc_files
+     }
 }
 
 # Create 'sim_1' fileset (if not found)
@@ -77,7 +83,10 @@ if {[string equal [get_filesets -quiet sim_1] ""]} {
 
 # Add simulation files
 if {[file exists ${sim_dir}]} {
-    add_files -fileset sim_1 -norecurse [glob -nocomplain ${sim_dir}/*.vhd ${sim_dir}/*.v ${sim_dir}/*.sv]
+    set sim_files [glob -nocomplain ${sim_dir}/*.vhd ${sim_dir}/*.v ${sim_dir}/*.sv]
+    if {[llength $sim_files] > 0} {
+        add_files -fileset sim_1 -norecurse $sim_files
+    }
 }
 
 # Update compile order
