@@ -34,8 +34,7 @@ AXI-Lite-MultiFunctionalPeripheral/
 └── README.md
 ```
 ---
-
-▶️ How to Run
+##▶️ How to Run
 
  1- Open Vivado
 
@@ -53,8 +52,7 @@ set user_project_name MyCustomProject
 source scripts/create_project.tcl
 ```
 ---
-
-+ Platform Note
+##Platform Note
 
 If you plan to use a different FPGA board or platform, the board-related parameters in the .tcl script must be updated.
 
@@ -69,9 +67,10 @@ Recommended workflow:
 This ensures correct board configuration and prevents synthesis or implementation issues.
 
 ---
-✅ After Running
+##✅ After Running
 
 Once the script finishes successfully, the project will be ready in Vivado.
+
 ---
 ## 🧩 What This Script Does
 
@@ -80,10 +79,12 @@ The `update_project.tcl` script automatically synchronize all files for Vivado.
 ▶ How to Run
 
  1- Open Vivado
+
  2- Tools/Run TCL script
+
  3- Select `update_project.tcl` script after changes.
 
-Next steps after adding new file:
+Steps for adding new file:
 
 	+ Add HDL files to src/
 
@@ -91,4 +92,4 @@ Next steps after adding new file:
 
 	+ Add constraint files to constraints/
 
-	+ Run TCL script &  run synthesis and implementation
+	+ Run TCL script & run synthesis and implementation
