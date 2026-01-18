@@ -1,4 +1,4 @@
-# 🚀 AXI-Lite Multi-Functional Peripheral
+# 🚀 AXI-Lite Mixed-Signal Validation Peripheral
 
 This reposityory provides AXI-Lite based multifunctional peripherals that includes UART + TIMER + GPIO. Main purpose of this project is applying industrial verification techniques to IPs.
 
@@ -31,7 +31,11 @@ This reposityory provides AXI-Lite based multifunctional peripherals that includ
 |0x2C|GPIO_DIR|    GPIO direction register. '1' = output, '0' = input.|
 |0x30|GPIO_OUT|    GPIO output data register. Controls output pin values.|
 |0x34|GPIO_IN|    GPIO input data register. Reflects current input pin states.|
+|0x38|MEAS_CTRL|    Measurement control (start validation).|
+|0x3C|MEAS_STATUS|    Measurement status (done, error flags).|
+|0x40|MEAS_BIT_PERIOD|    Measured UART bit period.|
+|0x44|MEAS_JITTER|    Measured jitter value.|
 
 ## Block Diagram
 
-![Block Diagram](./docs/images/AXI-Lite-MultiFuncPeriph_diagram.png)
+![Block Diagram](./docs/images/AXI-Lite-Mixed-Signal-Validation-Peripheral-BD)
