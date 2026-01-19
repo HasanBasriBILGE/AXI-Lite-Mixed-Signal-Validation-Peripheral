@@ -1,5 +1,7 @@
-.sim
-.cache
-.hw
-.ip_user_files
-.xpr
+*.sim
+*.cache
+*.hw
+*.ip_user_files
+*.xpr
+*.lpr
+*.wpc
