@@ -4,7 +4,7 @@
 # Get script directory and project info
 set script_dir [file normalize [file dirname [info script]]]
 set project_root [file dirname $script_dir]
-set project_dir [file join $project_root "AXI-Lite-MultiFunctionPeripheral"]
+set project_dir [file join $project_root "AXI-Lite-Mixed-Signal-Validation-Peripheral"]
 
 # Universal project handler (same as before)
 proc ensure_project {} {
@@ -47,19 +47,32 @@ proc normalize_files {file_list} {
 proc sync_sources {} {
     global project_root
     
-    puts "\n--- SYNCING SOURCE FILES ---"
-    set src_dir [file join $project_root "src"]
+    puts "\n--- SYNCING SOURCE FILES (INCLUDING SUBDIRECTORIES) ---"
+    set src_dir [file join $project_root "rtl"]
     
     # Get current files in project
     set project_files [get_files -filter {FILE_TYPE == VHDL || FILE_TYPE == Verilog || FILE_TYPE == SystemVerilog}]
     set project_files [normalize_files $project_files]
     
-    # Get files from filesystem
+    # Get files from filesystem (Recursive Search)
     set fs_files [list]
     if {[file exists $src_dir]} {
-        foreach ext {vhd vhdl v sv} {
-            set files [glob -nocomplain "$src_dir/*.$ext"]
-            set fs_files [concat $fs_files $files]
+        # 'dir' değişkeni rtl altındaki tüm klasörleri (kendisi dahil) gezer
+        # -types d sadece dizinleri bulmasını sağlar
+        set search_dirs [concat $src_dir [glob -nocomplain -directory $src_dir -types d -tails *]]
+        
+        foreach subdir $search_dirs {
+            # Eğer subdir bir tail ise (yani rtl'nin altındaysa) tam yolu birleştir
+            if {$subdir ne $src_dir} {
+                set current_path [file join $src_dir $subdir]
+            } else {
+                set current_path $src_dir
+            }
+            
+            foreach ext {vhd vhdl v sv} {
+                set files [glob -nocomplain -directory $current_path "*.$ext"]
+                set fs_files [concat $fs_files $files]
+            }
         }
     }
     set fs_files [normalize_files $fs_files]
@@ -70,22 +83,25 @@ proc sync_sources {} {
     foreach fs_file $fs_files {
         if {[lsearch -exact $project_files $fs_file] == -1} {
             add_files -norecurse $fs_file
-            puts "  + Added: [file tail $fs_file]"
+            puts "  + Added: [file tail $fs_file] (from [file tail [file dirname $fs_file]])"
             incr changes
         }
     }
     
     # Remove missing files
     foreach proj_file $project_files {
-        if {[lsearch -exact $fs_files $proj_file] == -1 && ![file exists $proj_file]} {
-            puts "  - Removed: [file tail $proj_file]"
-            remove_files -fileset sources_1 $proj_file            
-            incr changes
+        # Dosya rtl dizini altındaysa ama artık diskte yoksa projeden çıkar
+        if {[string match "$src_dir*" $proj_file]} {
+            if {[lsearch -exact $fs_files $proj_file] == -1 && ![file exists $proj_file]} {
+                puts "  - Removed: [file tail $proj_file]"
+                remove_files -fileset sources_1 $proj_file            
+                incr changes
+            }
         }
     }
     
     if {$changes == 0} {
-        puts "  ✓ No changes needed"
+        puts "  ✓ No changes needed in RTL tree"
     }
     
     return $changes

@@ -1,5 +1,5 @@
 interface irq_if #(
-    parameter int NUM_IRQS = 4;
+    parameter int NUM_IRQS = 4
 )(
     input logic clk, 
     input logic rst_n
